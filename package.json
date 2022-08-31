@@ -1,0 +1,56 @@
+{
+  "name": "onyx-keys",
+  "version": "1.0.0",
+  "description": "A library to maps keys to actions in KaiOS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/garredow/onyx-keys.git"
+  },
+  "author": "Garrett Downs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/garredow/onyx-keys/issues"
+  },
+  "homepage": "https://github.com/garredow/onyx-keys#readme",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "npm run clean && concurrently --kill-others \"npm run build-lib -- --watch --sourcemap\" \"npm run build-types -- --watch\"",
+    "build": "npm run clean && npm run build-lib -- --minify && npm run build-types",
+    "build-lib": "esbuild --outdir=lib --target=es6 src/*.ts src/**/*.ts",
+    "build-types": "tsc --emitDeclarationOnly",
+    "prepare": "npm run build",
+    "commit": "cz",
+    "clean": "rimraf ./lib"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/uuid": "^8.3.4",
+    "commitizen": "^4.2.4",
+    "concurrently": "^7.0.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "esbuild": "^0.14.27",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^19.0.2",
+    "typescript": "^4.6.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "jsqr": "^1.4.0",
+    "uuid": "^8.3.2"
+  }
+}
