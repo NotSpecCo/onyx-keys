@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/garredow/onyx-keys/compare/v1.1.0...v1.1.1) (2022-09-01)
+
+
+### Bug Fixes
+
+* cleanup ([4263fa0](https://github.com/garredow/onyx-keys/commit/4263fa0c7414740fb2f5cc7eb02b42500523229b))
+
 # [1.1.0](https://github.com/garredow/onyx-keys/compare/v1.0.0...v1.1.0) (2022-09-01)
 
 
