@@ -1,2 +1,4 @@
+export * from './Duration';
 export * from './HandlerKey';
-export * from './HandlerType';
+export * from './HandlerMap';
+export * from './HandlerName';

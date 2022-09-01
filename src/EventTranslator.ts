@@ -1,4 +1,5 @@
-import { KeyEvent, KeyPressEvent } from './events';
+import { KeyPressEvent } from './events';
+import { parseKey } from './utils';
 
 type Config = {
   longPressDelay: number;
@@ -51,31 +52,31 @@ export class EventTranslator {
   }
 
   private static handleKeyDown(ev: KeyboardEvent) {
-    const event = new KeyEvent(ev);
+    const key = parseKey(ev);
 
-    if (event.key === 'Other') return;
+    if (key === 'Other') return;
 
-    if (!event.repeat) {
-      this.pressedKey = event.key;
+    if (!ev.repeat) {
+      this.pressedKey = key;
       this.keyDownTime = Math.floor(performance.now());
     }
 
-    if (event.repeat) {
-      event.target.dispatchEvent(new KeyPressEvent(event.key, 'repeat'));
+    if (ev.repeat) {
+      ev.target?.dispatchEvent(new KeyPressEvent(ev, 'short'));
     }
 
     if (!this.longPressFired && this.keyDownDuration >= this.config.longPressDelay) {
       this.longPressFired = true;
-      event.target.dispatchEvent(new KeyPressEvent(event.key, 'long'));
+      ev.target?.dispatchEvent(new KeyPressEvent(ev, 'long'));
     }
   }
 
   private static handleKeyUp(ev: KeyboardEvent) {
-    const event = new KeyEvent(ev);
-    if (event.key === 'Other' || event.key !== this.pressedKey) return;
+    const key = parseKey(ev);
+    if (key === 'Other' || key !== this.pressedKey) return;
 
     if (this.keyDownDuration < this.config.longPressDelay) {
-      event.target.dispatchEvent(new KeyPressEvent(event.key, 'short'));
+      ev.target?.dispatchEvent(new KeyPressEvent(ev, 'short'));
     }
   }
 }

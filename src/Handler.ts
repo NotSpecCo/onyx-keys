@@ -1,11 +1,11 @@
 import { Priority } from './enums';
 import { KeyPressEvent } from './events';
-import { HandlerKey, HandlerType } from './models';
+import { Duration, HandlerKey } from './models';
 
 type NewHandler = {
   ownerId: string;
   key: HandlerKey;
-  type: HandlerType;
+  duration: Duration;
   priority: Priority;
   disabled: boolean;
   action: (ev: KeyPressEvent) => Promise<void>;
@@ -14,7 +14,7 @@ type NewHandler = {
 export class Handler {
   ownerId: string;
   key: HandlerKey;
-  type: HandlerType;
+  duration: Duration;
   priority: Priority;
   disabled: boolean;
   action: (ev: KeyPressEvent) => Promise<void>;
@@ -23,7 +23,7 @@ export class Handler {
   constructor(handler: NewHandler) {
     this.ownerId = handler.ownerId;
     this.key = handler.key;
-    this.type = handler.type;
+    this.duration = handler.duration;
     this.priority = handler.priority;
     this.disabled = handler.disabled;
     this.action = handler.action;
@@ -31,15 +31,12 @@ export class Handler {
 
   get fullName(): string {
     let type;
-    switch (this.type) {
+    switch (this.duration) {
       case 'short':
         type = 'Short';
         break;
       case 'long':
         type = 'Long';
-        break;
-      case 'repeat':
-        type = 'Repeat';
         break;
     }
 

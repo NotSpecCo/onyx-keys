@@ -1,12 +1,12 @@
 import { Handler } from './Handler';
-import { HandlerKey, HandlerType } from './models';
+import { Duration, HandlerKey } from './models';
 
 export class Handlers {
   static handlers: Handler[] = [];
 
-  static getPriorityHandler(key: HandlerKey, type: HandlerType): Handler | null {
+  static getPriorityHandler(key: HandlerKey, duration: Duration): Handler | null {
     const handlers = this.handlers
-      .filter((a) => !a.disabled && a.key === key && a.type === type)
+      .filter((a) => !a.disabled && a.key === key && a.duration === duration)
       .sort((a, b) => {
         if (a.priority > b.priority) return 1;
         if (a.priority < b.priority) return -1;

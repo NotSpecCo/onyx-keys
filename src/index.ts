@@ -3,21 +3,17 @@ import { KeyPressEvent } from './events';
 import { EventTranslator } from './EventTranslator';
 import { Handler } from './Handler';
 import { Handlers } from './Handlers';
-import { HandlerKey, HandlerType } from './models';
+import { HandlerKey, HandlerMap } from './models';
 import { generateId } from './utils';
-
-type NewHandler = {
-  key: HandlerKey;
-  type?: HandlerType;
-  priority?: Priority;
-  disabled?: boolean;
-  action: (ev: KeyPressEvent) => Promise<void>;
-};
 
 type Config = {
   longPressDelay: number;
   repeatDelay: number;
   repeatRate: number;
+};
+
+type HandlerConfig = {
+  priority: Priority;
 };
 
 const defaultConfig: Config = {
@@ -38,21 +34,23 @@ export class OnyxKeys {
     };
   }
 
-  static subscribe(handlers: NewHandler[]) {
+  static subscribe(handlerMap: Partial<HandlerMap>, options?: Partial<HandlerConfig>) {
     const ownerId = generateId();
 
     this.handlers.add(
-      handlers.map(
-        (a) =>
-          new Handler({
-            ownerId,
-            key: a.key,
-            type: a.type ?? 'short',
-            priority: a.priority ?? Priority.Medium,
-            disabled: a.disabled ?? false,
-            action: a.action,
-          })
-      )
+      Object.entries(handlerMap).map(([name, action]) => {
+        const [, key, duration] = name.match(/on(.*?)(Long|$)/) ?? [];
+        console.log('add', key, duration);
+
+        return new Handler({
+          ownerId,
+          key: key as HandlerKey,
+          duration: duration ? 'long' : 'short',
+          priority: options?.priority ?? Priority.Medium,
+          disabled: false,
+          action,
+        });
+      })
     );
 
     this.startListening();
@@ -101,7 +99,7 @@ export class OnyxKeys {
   }
 
   private static onKeyPress(ev: KeyPressEvent) {
-    const handler = this.handlers.getPriorityHandler(ev.detail.key, ev.detail.type);
+    const handler = this.handlers.getPriorityHandler(ev.detail.key, ev.detail.duration);
 
     if (!handler) return;
 
