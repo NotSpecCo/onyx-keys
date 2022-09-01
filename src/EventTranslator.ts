@@ -1,4 +1,3 @@
-import { HandlerType } from './enums';
 import { KeyEvent, KeyPressEvent } from './events';
 
 type Config = {
@@ -62,12 +61,12 @@ export class EventTranslator {
     }
 
     if (event.repeat) {
-      event.target.dispatchEvent(new KeyPressEvent(event.key, HandlerType.Repeat));
+      event.target.dispatchEvent(new KeyPressEvent(event.key, 'repeat'));
     }
 
     if (!this.longPressFired && this.keyDownDuration >= this.config.longPressDelay) {
       this.longPressFired = true;
-      event.target.dispatchEvent(new KeyPressEvent(event.key, HandlerType.Long));
+      event.target.dispatchEvent(new KeyPressEvent(event.key, 'long'));
     }
   }
 
@@ -76,7 +75,7 @@ export class EventTranslator {
     if (event.key === 'Other' || event.key !== this.pressedKey) return;
 
     if (this.keyDownDuration < this.config.longPressDelay) {
-      event.target.dispatchEvent(new KeyPressEvent(event.key, HandlerType.Short));
+      event.target.dispatchEvent(new KeyPressEvent(event.key, 'short'));
     }
   }
 }

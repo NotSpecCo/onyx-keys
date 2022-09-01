@@ -1,6 +1,5 @@
-import { HandlerType } from './enums';
 import { Handler } from './Handler';
-import { HandlerKey } from './models';
+import { HandlerKey, HandlerType } from './models';
 
 export class Handlers {
   static handlers: Handler[] = [];

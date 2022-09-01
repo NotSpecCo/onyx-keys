@@ -1,5 +1,4 @@
-import { HandlerType } from '../enums';
-import { HandlerKey } from '../models';
+import { HandlerKey, HandlerType } from '../models';
 
 type Data = {
   type: HandlerType;
