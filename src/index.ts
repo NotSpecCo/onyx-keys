@@ -40,8 +40,6 @@ export class OnyxKeys {
     this.handlers.add(
       Object.entries(handlerMap).map(([name, action]) => {
         const [, key, duration] = name.match(/on(.*?)(Long|$)/) ?? [];
-        console.log('add', key, duration);
-
         return new Handler({
           ownerId,
           key: key as HandlerKey,
