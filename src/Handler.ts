@@ -1,5 +1,6 @@
-import { HandlerType, Priority } from './enums';
-import { HandlerKey } from './models';
+import { Priority } from './enums';
+import { KeyPressEvent } from './events';
+import { HandlerKey, HandlerType } from './models';
 
 type NewHandler = {
   ownerId: string;
@@ -7,7 +8,7 @@ type NewHandler = {
   type: HandlerType;
   priority: Priority;
   disabled: boolean;
-  action: () => Promise<boolean>;
+  action: (ev: KeyPressEvent) => Promise<void>;
 };
 
 export class Handler {
@@ -16,7 +17,7 @@ export class Handler {
   type: HandlerType;
   priority: Priority;
   disabled: boolean;
-  action: () => Promise<boolean>;
+  action: (ev: KeyPressEvent) => Promise<void>;
   working = false;
 
   constructor(handler: NewHandler) {
@@ -31,13 +32,13 @@ export class Handler {
   get fullName(): string {
     let type;
     switch (this.type) {
-      case HandlerType.Short:
+      case 'short':
         type = 'Short';
         break;
-      case HandlerType.Long:
+      case 'long':
         type = 'Long';
         break;
-      case HandlerType.Repeat:
+      case 'repeat':
         type = 'Repeat';
         break;
     }
@@ -53,21 +54,20 @@ export class Handler {
     this.disabled = false;
   }
 
-  call(): Promise<boolean> {
+  call(ev: KeyPressEvent): Promise<void> {
     if (this.working) {
-      return Promise.resolve(true);
+      return Promise.resolve();
     }
 
-    console.log(`${this.fullName}: called`);
+    // console.log(`${this.fullName}: called`);
     this.working = true;
 
-    return this.action()
+    return this.action(ev)
       .catch((err) => {
         console.log(`Failed to call handler: ${this.fullName}`, err);
-        return true;
       })
       .finally(() => {
-        console.log(`${this.fullName}: finished`);
+        // console.log(`${this.fullName}: finished`);
         this.working = false;
       });
   }

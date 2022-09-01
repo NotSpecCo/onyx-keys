@@ -1,17 +1,17 @@
-import { HandlerType, Priority } from './enums';
+import { Priority } from './enums';
 import { KeyPressEvent } from './events';
 import { EventTranslator } from './EventTranslator';
 import { Handler } from './Handler';
 import { Handlers } from './Handlers';
-import { HandlerKey } from './models';
+import { HandlerKey, HandlerType } from './models';
 import { generateId } from './utils';
 
 type NewHandler = {
   key: HandlerKey;
-  type: HandlerType;
+  type?: HandlerType;
   priority?: Priority;
   disabled?: boolean;
-  action: () => Promise<boolean>;
+  action: (ev: KeyPressEvent) => Promise<void>;
 };
 
 type Config = {
@@ -47,7 +47,7 @@ export class OnyxKeys {
           new Handler({
             ownerId,
             key: a.key,
-            type: a.type,
+            type: a.type ?? 'short',
             priority: a.priority ?? Priority.Medium,
             disabled: a.disabled ?? false,
             action: a.action,
@@ -109,6 +109,6 @@ export class OnyxKeys {
     ev.stopImmediatePropagation();
     ev.preventDefault();
 
-    handler.call();
+    handler.call(ev);
   }
 }
