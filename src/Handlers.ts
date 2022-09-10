@@ -12,7 +12,7 @@ export class Handlers {
         if (a.priority < b.priority) return -1;
         return 0;
       });
-    return handlers.at(-1) || null;
+    return handlers[handlers.length - 1] || null;
   }
 
   static add(handlers: Handler[]) {

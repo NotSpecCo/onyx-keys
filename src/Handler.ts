@@ -51,7 +51,7 @@ export class Handler {
     this.disabled = false;
   }
 
-  call(ev: KeyPressEvent): Promise<void> {
+  async call(ev: KeyPressEvent): Promise<void> {
     if (this.working) {
       return Promise.resolve();
     }
@@ -59,13 +59,11 @@ export class Handler {
     // console.log(`${this.fullName}: called`);
     this.working = true;
 
-    return this.action(ev)
-      .catch((err) => {
-        console.log(`Failed to call handler: ${this.fullName}`, err);
-      })
-      .finally(() => {
-        // console.log(`${this.fullName}: finished`);
-        this.working = false;
-      });
+    await this.action(ev).catch((err) => {
+      console.log(`Failed to call handler: ${this.fullName}`, err);
+    });
+
+    // console.log(`${this.fullName}: finished`);
+    this.working = false;
   }
 }
