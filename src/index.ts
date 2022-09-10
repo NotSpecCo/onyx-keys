@@ -1,3 +1,4 @@
+import getDescriptors from 'object.getownpropertydescriptors';
 import { Priority } from './enums';
 import { KeyPressEvent } from './events';
 import { EventTranslator } from './EventTranslator';
@@ -5,6 +6,8 @@ import { Handler } from './Handler';
 import { Handlers } from './Handlers';
 import { HandlerKey, HandlerMap } from './models';
 import { generateId } from './utils';
+
+getDescriptors.shim();
 
 type Config = {
   longPressDelay: number;

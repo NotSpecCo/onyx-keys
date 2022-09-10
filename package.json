@@ -35,6 +35,7 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@types/object.getownpropertydescriptors": "^2.1.1",
     "@types/uuid": "^8.3.4",
     "commitizen": "^4.2.4",
     "concurrently": "^7.0.0",
@@ -51,6 +52,7 @@
   },
   "dependencies": {
     "jsqr": "^1.4.0",
+    "object.getownpropertydescriptors": "^2.1.4",
     "uuid": "^8.3.2"
   }
 }
