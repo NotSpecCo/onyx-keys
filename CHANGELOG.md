@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/garredow/onyx-keys/compare/v1.1.2...v1.1.3) (2022-09-10)
+
+
+### Bug Fixes
+
+* fix for kaios ([022e397](https://github.com/garredow/onyx-keys/commit/022e397a1fa99db6d987dcf095fb30a09f3d0d17))
+
 ## [1.1.2](https://github.com/garredow/onyx-keys/compare/v1.1.1...v1.1.2) (2022-09-10)
 
 
