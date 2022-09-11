@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/garredow/onyx-keys/compare/v1.1.3...v1.1.4) (2022-09-11)
+
+
+### Bug Fixes
+
+* fix longpressing a second time ([9fa2e7f](https://github.com/garredow/onyx-keys/commit/9fa2e7fe1faca56b0c79c96460c06cf836d63870))
+
 ## [1.1.3](https://github.com/garredow/onyx-keys/compare/v1.1.2...v1.1.3) (2022-09-10)
 
 
