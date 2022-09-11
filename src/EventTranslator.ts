@@ -45,8 +45,8 @@ export class EventTranslator {
       return;
     }
 
-    document.addEventListener('keydown', this.handleKeyDown.bind(this));
-    document.addEventListener('keyup', this.handleKeyUp.bind(this));
+    document.removeEventListener('keydown', this.handleKeyDown.bind(this));
+    document.removeEventListener('keyup', this.handleKeyUp.bind(this));
 
     this.listening = false;
   }
@@ -57,6 +57,7 @@ export class EventTranslator {
     if (key === 'Other') return;
 
     if (!ev.repeat) {
+      this.longPressFired = false;
       this.pressedKey = key;
       this.keyDownTime = Math.floor(performance.now());
     }
