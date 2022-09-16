@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/garredow/onyx-keys/compare/v1.1.4...v1.2.0) (2022-09-16)
+
+
+### Features
+
+* allow multiple handlers per priority ([8e34093](https://github.com/garredow/onyx-keys/commit/8e340937963447192577e77c0961c61f9d769c8c))
+
 ## [1.1.4](https://github.com/garredow/onyx-keys/compare/v1.1.3...v1.1.4) (2022-09-11)
 
 
