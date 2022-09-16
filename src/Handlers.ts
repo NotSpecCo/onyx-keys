@@ -1,18 +1,27 @@
+import { Priority } from './enums';
 import { Handler } from './Handler';
 import { Duration, HandlerKey } from './models';
 
 export class Handlers {
   static handlers: Handler[] = [];
 
-  static getPriorityHandler(key: HandlerKey, duration: Duration): Handler | null {
+  static getPriorityHandlers(key: HandlerKey, duration: Duration): Handler[] {
     const handlers = this.handlers
       .filter((a) => !a.disabled && a.key === key && a.duration === duration)
-      .sort((a, b) => {
-        if (a.priority > b.priority) return 1;
-        if (a.priority < b.priority) return -1;
-        return 0;
-      });
-    return handlers[handlers.length - 1] || null;
+      .reduce((acc, val) => {
+        if (!acc[val.priority]) acc[val.priority] = [val];
+        else acc[val.priority].push(val);
+        return acc;
+      }, {} as { [key: number]: Handler[] });
+
+    return (
+      handlers[Priority.Highest] ||
+      handlers[Priority.High] ||
+      handlers[Priority.Medium] ||
+      handlers[Priority.Low] ||
+      handlers[Priority.Lowest] ||
+      []
+    );
   }
 
   static add(handlers: Handler[]) {

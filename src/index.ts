@@ -100,14 +100,14 @@ export class OnyxKeys {
   }
 
   private static onKeyPress(ev: KeyPressEvent) {
-    const handler = this.handlers.getPriorityHandler(ev.detail.key, ev.detail.duration);
+    const handlers = this.handlers.getPriorityHandlers(ev.detail.key, ev.detail.duration);
 
-    if (!handler) return;
+    if (handlers.length === 0) return;
 
     ev.stopPropagation();
     ev.stopImmediatePropagation();
     ev.preventDefault();
 
-    handler.call(ev);
+    handlers.forEach((handler) => handler.call(ev));
   }
 }
